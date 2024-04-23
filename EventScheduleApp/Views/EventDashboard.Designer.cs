@@ -165,6 +165,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EventDashboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Event Dashboard";
             this.Load += new System.EventHandler(this.EventDashboard_Load);
             this.ResumeLayout(false);

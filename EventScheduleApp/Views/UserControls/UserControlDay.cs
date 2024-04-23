@@ -23,7 +23,7 @@ namespace EventScheduleApp.Views.UserControls
             lbdays.Text = numday + "";
         }
 
-        private void UserControlDay_Load(object sender, EventArgs e)
+        private void DayClick(object sender, EventArgs e)
         {
             static_day = lbdays.Text;
             timer1.Start();

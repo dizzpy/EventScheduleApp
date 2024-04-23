@@ -76,7 +76,7 @@
             this.Controls.Add(this.lbdays);
             this.Name = "UserControlDay";
             this.Size = new System.Drawing.Size(139, 100);
-            this.Load += new System.EventHandler(this.UserControlDay_Load);
+            this.Click += new System.EventHandler(this.DayClick);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

@@ -35,8 +35,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
             this.txdate = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -104,6 +104,14 @@
             this.panel5.Size = new System.Drawing.Size(354, 77);
             this.panel5.TabIndex = 3;
             // 
+            // txdate
+            // 
+            this.txdate.Location = new System.Drawing.Point(13, 28);
+            this.txdate.Name = "txdate";
+            this.txdate.Size = new System.Drawing.Size(271, 23);
+            this.txdate.TabIndex = 1;
+            this.txdate.Text = "Your date ?";
+            // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(37, 340);
@@ -112,14 +120,7 @@
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Add Event";
             this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // txdate
-            // 
-            this.txdate.Location = new System.Drawing.Point(13, 28);
-            this.txdate.Name = "txdate";
-            this.txdate.Size = new System.Drawing.Size(271, 23);
-            this.txdate.TabIndex = 1;
-            this.txdate.Text = "Your date ?";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // AddEventForm
             // 
