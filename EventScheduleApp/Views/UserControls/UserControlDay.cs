@@ -12,6 +12,7 @@ namespace EventScheduleApp.Views.UserControls
 {
     public partial class UserControlDay : UserControl
     {
+        public static string static_day;
         public UserControlDay()
         {
             InitializeComponent();
@@ -22,5 +23,12 @@ namespace EventScheduleApp.Views.UserControls
             lbdays.Text = numday + "";
         }
 
+        private void UserControlDay_Load(object sender, EventArgs e)
+        {
+            static_day = lbdays.Text;
+            timer1.Start();
+            AddEventForm eventform = new AddEventForm();
+            eventform.Show();
+        }
     }
 }

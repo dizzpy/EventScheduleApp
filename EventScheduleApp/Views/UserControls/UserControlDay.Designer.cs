@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbdays = new System.Windows.Forms.Label();
             this.lbevent = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,6 +76,7 @@
             this.Controls.Add(this.lbdays);
             this.Name = "UserControlDay";
             this.Size = new System.Drawing.Size(139, 100);
+            this.Load += new System.EventHandler(this.UserControlDay_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -86,5 +89,6 @@
         private System.Windows.Forms.Label lbdays;
         private System.Windows.Forms.Label lbevent;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Timer timer1;
     }
 }

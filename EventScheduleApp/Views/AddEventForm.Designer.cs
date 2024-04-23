@@ -34,9 +34,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.txdate = new System.Windows.Forms.DateTimePicker();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txdate = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -60,7 +60,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(354, 77);
             this.panel1.TabIndex = 1;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // txevent
             // 
@@ -96,13 +95,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Your date ?";
             // 
-            // txdate
-            // 
-            this.txdate.Location = new System.Drawing.Point(17, 27);
-            this.txdate.Name = "txdate";
-            this.txdate.Size = new System.Drawing.Size(321, 27);
-            this.txdate.TabIndex = 6;
-            // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -121,6 +113,14 @@
             this.btnSave.Text = "Add Event";
             this.btnSave.UseVisualStyleBackColor = true;
             // 
+            // txdate
+            // 
+            this.txdate.Location = new System.Drawing.Point(13, 28);
+            this.txdate.Name = "txdate";
+            this.txdate.Size = new System.Drawing.Size(271, 23);
+            this.txdate.TabIndex = 1;
+            this.txdate.Text = "Your date ?";
+            // 
             // AddEventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 23F);
@@ -137,6 +137,7 @@
             this.Name = "AddEventForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Your Event";
+            this.Load += new System.EventHandler(this.AddEventForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -156,8 +157,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker txdate;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label txdate;
     }
 }
