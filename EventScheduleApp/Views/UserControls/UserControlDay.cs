@@ -1,62 +1,60 @@
-﻿using MySqlConnector;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using Google.Cloud.Firestore;
 
 namespace EventScheduleApp.Views.UserControls
 {
     public partial class UserControlDay : UserControl
     {
-        MySqlConnection connection = new MySqlConnection("server=localhost;database=eventdb;port=3306;username=root;password=");
+        private FirestoreDb db;
         public static string static_day;
+
         public UserControlDay()
         {
             InitializeComponent();
+            InitializeFirestore();
             DisplayEvents();
+        }
+
+        private void InitializeFirestore()
+        {
+            string projectId = "testeventlast";
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "C:\\Users\\User\\Desktop\\Studee\\EventScheduleApp\\EventScheduleApp\\FirebaseCred.json");
+            db = FirestoreDb.Create(projectId);
         }
 
         public void days(int numday)
         {
-            lbdays.Text = numday + "";
+            lbdays.Text = numday.ToString();
         }
 
         private void DayClick(object sender, EventArgs e)
         {
             static_day = lbdays.Text;
             timer1.Start();
-            AddEventForm eventform = new AddEventForm();
-            eventform.Show();
+            // Open the form for adding events when the day is clicked
+            OpenAddEventForm();
         }
 
-        private void DisplayEvents()
+        private async void DisplayEvents()
         {
             try
             {
-                connection.Open();
-                string query = "SELECT * FROM eventdb.users WHERE Date = @Date";
-                MySqlCommand commandDatabase = new MySqlCommand(query, connection);
+                // Construct the date string
+                string dateString = $"{EventDashboard.static_month}/{UserControlDay.static_day}/{EventDashboard.static_year}";
 
-                // Construct the date string in the format expected by the database
-                string dateString = EventDashboard.static_month + "/" + UserControlDay.static_day + "/" + EventDashboard.static_year;
+                // Query Firestore for events on the specified date
+                CollectionReference eventsCollection = db.Collection("userLoggedEmail");
+                QuerySnapshot querySnapshot = await eventsCollection.WhereEqualTo("Date", dateString).GetSnapshotAsync();
 
-                commandDatabase.Parameters.AddWithValue("@Date", dateString);
-
-                using (MySqlDataReader reader = commandDatabase.ExecuteReader())
+                foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
                 {
-                    if (reader.Read())
+                    // Extract event details from the document
+                    if (documentSnapshot.TryGetValue("Event", out object eventName))
                     {
-                        lbevent.Text = reader["Event"].ToString();
+                        // Display the event in the user control
+                        lbevent.Text = eventName.ToString();
                         Console.WriteLine($"Event loaded: {lbevent.Text}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("No event found for the specified date.");
                     }
                 }
             }
@@ -64,22 +62,30 @@ namespace EventScheduleApp.Views.UserControls
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                connection.Close();
-            }
         }
-
-
 
         private void TimerRun(object sender, EventArgs e)
         {
+            // Refresh events periodically
             DisplayEvents();
         }
 
         public void SetEvent(string eventName, string date)
         {
+            // Set event details in the user control
             lbevent.Text = eventName;
+        }
+
+        private void OpenAddEventForm()
+        {
+            // Open the form for adding events
+            AddEventForm addEventForm = new AddEventForm();
+            addEventForm.EventAdded += (sender, args) =>
+            {
+                // Update the displayed event after adding a new event
+                lbevent.Text = args.EventName;
+            };
+            addEventForm.Show();
         }
     }
 }
