@@ -8,6 +8,7 @@ namespace EventScheduleApp.Views
 {
     public partial class AddEventForm : Form
     {
+        public event EventHandler<EventAddedEventArgs> EventAdded;
         MySqlConnection connection = new MySqlConnection("server=localhost;database=eventdb;port=3306;username=root;password=");
 
         public AddEventForm()
@@ -34,6 +35,11 @@ namespace EventScheduleApp.Views
 
                 commandDatabase.ExecuteNonQuery();
                 MessageBox.Show("Data Added Successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //need to pass Event Name and Date to UserControlDay class
+                // Raise the EventAdded event and pass event name and date
+                EventAdded?.Invoke(this, new EventAddedEventArgs(txevent.Text, txdate.Text));
+
                 this.Hide();
             }
             catch (Exception ex)

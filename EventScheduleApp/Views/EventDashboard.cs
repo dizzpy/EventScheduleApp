@@ -1,4 +1,5 @@
-﻿using EventScheduleApp.Views.UserControls;
+﻿using EventScheduleApp.Views;
+using EventScheduleApp.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -122,6 +123,23 @@ namespace EventScheduleApp
                 ucdays.days(i);
                 daycontainer.Controls.Add(ucdays);
             }
+        }
+
+        private void OpenAddEventForm()
+        {
+            AddEventForm addEventForm = new AddEventForm();
+            addEventForm.EventAdded += (sender, args) =>
+            {
+                // Pass event name and date to UserControlDay instance
+                foreach (Control control in daycontainer.Controls)
+                {
+                    if (control is UserControlDay userControlDay)
+                    {
+                        userControlDay.SetEvent(args.EventName, args.Date);
+                    }
+                }
+            };
+            addEventForm.Show();
         }
     }
 }

@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\EventAddedEventArgs.cs" />
     <Compile Include="Views\AddEventForm.cs">
       <SubType>Form</SubType>
     </Compile>
